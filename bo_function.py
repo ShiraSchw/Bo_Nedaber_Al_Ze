@@ -65,12 +65,13 @@ def answering_state():
                 save_json(game_state, GAME_STATE_FILE)
                 st.rerun()
 
-    st.success("סיימנו את שלב התשובות! המשחק האמיתי מתחיל עכשיו...")
-    game_state["phase"] = "guessing"
-    game_state["guess_index"] = 0
-    game_state["guesses"] = {}
-    save_json(game_state, GAME_STATE_FILE)
-    st.rerun()
+    else:
+        st.success("סיימנו את שלב התשובות! המשחק האמיתי מתחיל עכשיו...")
+        game_state["phase"] = "guessing"
+        game_state["guess_index"] = 0
+        game_state["guesses"] = {}
+        save_json(game_state, GAME_STATE_FILE)
+        st.rerun()
 
 # שלב הניחושים
 def guessing_state():
@@ -112,11 +113,12 @@ def guessing_state():
                 save_json(game_state, GAME_STATE_FILE)
                 st.rerun()
 
-    st.success("סיימנו את שלב הניחושים! עכשיו נדרג את התשובות...")
-    game_state["phase"] = "rating"
-    game_state["rating_index"] = 0
-    save_json(game_state, GAME_STATE_FILE)
-    st.rerun()
+    else:
+        st.success("סיימנו את שלב הניחושים! עכשיו נדרג את התשובות...")
+        game_state["phase"] = "rating"
+        game_state["rating_index"] = 0
+        save_json(game_state, GAME_STATE_FILE)
+        st.rerun()
 
 # שלב הדירוג
 def rating_state():
@@ -142,10 +144,11 @@ def rating_state():
                 save_json(game_state, GAME_STATE_FILE)
                 st.rerun()
 
-    st.success("שלב הדירוג הסתיים! מחשבים את התוצאות...")
-    game_state["phase"] = "results"
-    save_json(game_state, GAME_STATE_FILE)
-    st.rerun()
+    else:
+        st.success("שלב הדירוג הסתיים! מחשבים את התוצאות...")
+        game_state["phase"] = "results"
+        save_json(game_state, GAME_STATE_FILE)
+        st.rerun()
 
 # תוצאות המשחק
 def results_state():
