@@ -3,10 +3,10 @@ from bo_utils import load_json, save_json
 import random
 
 # הגדרת נתיבים
-QUESTIONS_FILE = 'questions.json'
-PLAYERS_FILE = 'players.json'
-GAME_STATE_FILE = 'game_state.json'
-ANSWERS_FILE = 'answers.json'
+QUESTIONS_FILE = 'bo_questions.json'
+PLAYERS_FILE = 'bo_players.json'
+GAME_STATE_FILE = 'bo_game_state.json'
+ANSWERS_FILE = 'bo_answers.json'
 
 # טעינת מצב קיים או יצירת חדש
 questions = load_json(QUESTIONS_FILE)
