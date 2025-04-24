@@ -26,7 +26,7 @@ if st.button("אפס את המשחק"):
     save_json(game_state, GAME_STATE_FILE)
     save_json(players, PLAYERS_FILE)
     save_json(answers, ANSWERS_FILE)
-    st.experimental_rerun()
+    st.rerun()
 
 # שלב הרשמה
 if game_state.get("phase") == "registration":
