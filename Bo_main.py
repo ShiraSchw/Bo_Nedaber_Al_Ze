@@ -47,7 +47,7 @@ if game_state.get("phase") == "registration":
             game_state["scores"] = {player: 0 for player in players}
             game_state["ratings"] = {player: [] for player in players}
             save_json(game_state, GAME_STATE_FILE)
-            st.experimental_rerun()
+            st.rerun()
 
 # שלב השאלות
 elif game_state.get("phase") == "answering":
@@ -76,14 +76,14 @@ elif game_state.get("phase") == "answering":
             if st.button("עבור לשאלה הבאה"):
                 game_state["current_question_index"] += 1
                 save_json(game_state, GAME_STATE_FILE)
-                st.experimental_rerun()
+                st.rerun()
     else:
         st.success("סיימנו את שלב התשובות! המשחק האמיתי מתחיל עכשיו...")
         game_state["phase"] = "guessing"
         game_state["guess_index"] = 0
         game_state["guesses"] = {}
         save_json(game_state, GAME_STATE_FILE)
-        st.experimental_rerun()
+        st.rerun()
 
 # שלב הניחושים
 elif game_state.get("phase") == "guessing":
@@ -123,13 +123,13 @@ elif game_state.get("phase") == "guessing":
             if st.button("עבור לניחוש הבא"):
                 game_state["guess_index"] += 1
                 save_json(game_state, GAME_STATE_FILE)
-                st.experimental_rerun()
+                st.rerun()
     else:
         st.success("סיימנו את שלב הניחושים! עכשיו נדרג את התשובות...")
         game_state["phase"] = "rating"
         game_state["rating_index"] = 0
         save_json(game_state, GAME_STATE_FILE)
-        st.experimental_rerun()
+        st.rerun()
 
 # שלב הדירוג
 elif game_state.get("phase") == "rating":
@@ -153,12 +153,12 @@ elif game_state.get("phase") == "rating":
             if st.button("עבור לשאלה הבאה לדירוג"):
                 game_state["rating_index"] += 1
                 save_json(game_state, GAME_STATE_FILE)
-                st.experimental_rerun()
+                st.rerun()
     else:
         st.success("שלב הדירוג הסתיים! מחשבים את התוצאות...")
         game_state["phase"] = "results"
         save_json(game_state, GAME_STATE_FILE)
-        st.experimental_rerun()
+        st.rerun()
 
 # תוצאות המשחק
 elif game_state.get("phase") == "results":
