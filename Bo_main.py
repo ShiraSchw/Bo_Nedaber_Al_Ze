@@ -1,6 +1,6 @@
 # main.py
 import streamlit as st
-from utils import load_json, save_json
+from bo_utils import load_json, save_json
 import random
 
 # הגדרת נתיבים
