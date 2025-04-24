@@ -1,6 +1,5 @@
-# main.py
 import streamlit as st
-from bo_utils import load_json, save_json
+from utils import load_json, save_json
 import random
 
 # הגדרת נתיבים
@@ -19,6 +18,17 @@ answers = load_json(ANSWERS_FILE)
 st.set_page_config(page_title="בוא נדבר על זה", layout="centered")
 st.title("🎉 בוא נדבר על זה - משחק קבוצתי")
 
+# כפתור לאיפוס המצב
+if st.button("אפס את המשחק"):
+    game_state = {"phase": "registration"}
+    players.clear()
+    answers.clear()
+    save_json(game_state, GAME_STATE_FILE)
+    save_json(players, PLAYERS_FILE)
+    save_json(answers, ANSWERS_FILE)
+    st.experimental_rerun()
+
+# שלב הרשמה
 if game_state.get("phase") == "registration":
     st.subheader("הרשמה למשחק")
     name = st.text_input("הכניסו שם משתמש כדי להצטרף למשחק")
@@ -39,6 +49,7 @@ if game_state.get("phase") == "registration":
             save_json(game_state, GAME_STATE_FILE)
             st.experimental_rerun()
 
+# שלב השאלות
 elif game_state.get("phase") == "answering":
     st.subheader("שלב השאלות - כתבו את תשובתכם!")
     current_index = game_state.get("current_question_index", 0)
@@ -74,6 +85,7 @@ elif game_state.get("phase") == "answering":
         save_json(game_state, GAME_STATE_FILE)
         st.experimental_rerun()
 
+# שלב הניחושים
 elif game_state.get("phase") == "guessing":
     st.subheader("שלב הניחושים - מי ענה את זה?")
     guess_index = game_state.get("guess_index", 0)
@@ -119,6 +131,7 @@ elif game_state.get("phase") == "guessing":
         save_json(game_state, GAME_STATE_FILE)
         st.experimental_rerun()
 
+# שלב הדירוג
 elif game_state.get("phase") == "rating":
     st.subheader("שלב הדירוג - דרגו את התשובות!")
     rating_index = game_state.get("rating_index", 0)
@@ -147,6 +160,7 @@ elif game_state.get("phase") == "rating":
         save_json(game_state, GAME_STATE_FILE)
         st.experimental_rerun()
 
+# תוצאות המשחק
 elif game_state.get("phase") == "results":
     st.subheader("🎉 תוצאות המשחק 🎉")
     st.markdown("### ניחושים נכונים:")
@@ -168,6 +182,3 @@ elif game_state.get("phase") == "results":
 
     st.success(f"🏆 המנצח בניחושים: {winner_guess}")
     st.success(f"🏆 המנצח בתשובות: {winner_rating}")
-
-else:
-    st.info("המשחק כבר התחיל! כדי לאפס אותו, יש למחוק את קובצי הנתונים.")
